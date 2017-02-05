@@ -1,0 +1,30 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:s="http://jboss.org/schema/seam/taglib"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html">
+
+    <ul id="Navigation">
+        <li id="page_home"><s:link id="Home" view="/home.xhtml" value="صفخه نخست" propagation="none"/></li>
+        <li id="page_shop"><s:link id="Shop" view="/browse.xhtml" value="پلان های فروش" propagation="none"/></li>
+        <li id="page_cart"><s:link id="Cart" view="/checkout.xhtml" value="سبد سفارشات" propagation="none"/></li>
+        <f:subview rendered="#{identity.loggedIn}">
+            <li id="page_orders"><s:link id="MyOrders" view="/showorders.xhtml" value="داشبورد" propagation="none"/></li>
+        </f:subview>
+        <li id="page_services"><s:link id="Service" view="/services.xhtml" value="سرویس ها" propagation="none"/></li>
+        <li id="page_gallery"><s:link id="Gallery" view="/gallery.xhtml" value="نمونه کار" propagation="none"/></li>
+        
+        <li id="page_about"><s:link id="About" view="/about.xhtml" value="ارتباط با ما" propagation="none"/></li>
+    </ul>
+
+    <script type="text/javascript" language="JavaScript">
+        function setClass(id, className) {
+            var obj = document.getElementById(id);
+            if (obj != null) {
+                obj.className = className;
+            }
+        }
+        setClass("page_" + "#{page}", "current");
+    </script>
+
+</div>

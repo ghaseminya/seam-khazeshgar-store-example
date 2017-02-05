@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:s="http://jboss.org/schema/seam/taglib"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<body>
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="topnav">
+            <ui:include src="/WEB-INF/incl/store_nav.xhtml">
+                <ui:param name="page" value="home" />
+            </ui:include>
+        </ui:define> 
+           
+        <ui:define name="sidebar">
+            <ui:include src="/WEB-INF/incl/login.xhtml" />
+        </ui:define>
+        
+        <ui:define name="body">
+            <h1>
+            	به خزشگر خوش آمدید.
+            </h1>
+            
+            <p>
+                خزش داده های آنلاین
+                <br/>
+خزشگر اولین سامانه خزش دادها های دینامیک و استاتیک توسط سرورهای قوی داخل و خارج از ایران.
+            </p>
+
+            <h2>
+ما در خزشگر چه سرویس هایی داریم:
+</h2>
+            <p>
+            <div style="margin-bottom: 30px;">
+                <img width="260px" src="img/img-1.png"></img>
+                <br/>
+                قیمت کالای خود را بهینه کنید و فروش خود را تا حد امکان بیشتر کنید با سیستم مونیتور قیمت کالاهای مورد نظرتان توسط رقبا.
+            
+            </div>
+            <hr/>
+            <div style="margin-bottom: 30px;">
+                <img width="260px" src="img/img-6.png"></img>
+                <br/>
+              	اطلاعات مفید و قابل استفاده از دایرکتوری ها و شبکه های اجتماعی حرفه ای مانند تویتر و لینکداین.
+            </div>
+            <hr/>
+            <div style="margin-bottom: 30px;">
+                <img width="260px" src="img/img-7.png"></img>
+                <br/>
+                خزش کننده خود را برای اخبار، رویداد، لیست های مختلف بسازید و در پرتال و وب سایت خود استفاده کنید.
+            </div>
+            <hr/>
+            <div style="margin-bottom: 30px;">
+                <img width="260px" src="img/img-5.png"></img>
+                <br/>
+                یک مارکتینگ هوشمند با استفاده از کلید های مهم از منابع مختلف داشته باشید.
+            </div>
+            <hr/>
+            <div style="margin-bottom: 30px;">
+                <img width="260px" src="img/img-8.png"></img>
+                <br/>
+                دیتای مهم اقتصادی را از سایت های منبع بورس و یا سهام و یا نرخ های ارز به روز را به صورت لحظه ای برای شروع یک کسب و کار بزرگ داشته باشید.
+           </div>
+            <hr/>
+            <div style="margin-bottom: 30px;">
+                <img width="260px" src="img/img-2.png"></img>
+                <br/>
+                سایت های ارائه کننده قیمت بسازید و به دیگر شرکتهای تجاری سرویس بفروشید.
+            </div>
+            </p>
+
+            <p>
+            <h2>چرا خزشگر؟</h2>
+                
+                <ul>
+   <li>سرویس های ما کاملا گارانتی برگشت دارد.</li>
+   <li>شما نیاز به دانش برنامه نویسی ندارید.</li>
+   <li>خروجی های متنوع با فرمت های مختلف پایگاه داده و فایل های داده ای.</li>
+				</ul>
+            </p> 
+
+
+            <s:button id="StartShoppingButton" view="/browse.xhtml" value="درخواست خزش" />
+
+        </ui:define>
+    </ui:composition> 
+</body> 
+</html>

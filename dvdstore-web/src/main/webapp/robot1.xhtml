@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:s="http://jboss.org/schema/seam/taglib"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<body>
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="topnav">
+            <ui:include src="/WEB-INF/incl/store_nav.xhtml">
+                <ui:param name="page" value="services" />
+            </ui:include>
+        </ui:define> 
+           
+        <ui:define name="sidebar">
+            <ui:include src="/WEB-INF/incl/login.xhtml" />
+        </ui:define>
+        
+        <ui:define name="body">
+            <h1>
+            	سرویس خزشگر سایت و آرشیو کننده سایت
+            </h1>
+            <p>
+            <h:form>
+            	آدرس وب سایت مورد نظر جهت آرشیو:<h:inputText value="#{robot1.site}" /><br/>
+            	کدام فایل ها را از این سایت می خواهید:<h:inputText value="#{robot1.file}" /><br/>
+            	حجم دریافت مدنظر شما چقدر است؟<h:inputText value="#{robot1.size}" /><br/>
+            	آیا لینک های خارج از این سایت هم دانلود شوند؟<h:selectBooleanCheckbox value="#{robot1.redirect}" /><br/>
+            	تعداد فایل های مدنظر شما جهت دانلود؟<h:inputText value="number" /><br/>
+            	<h:commandButton action="#{robot1.start()}" value="شروع به خزش" />
+            </h:form>
+            </p>
+            
+
+        </ui:define>
+    </ui:composition> 
+</body> 
+</html>

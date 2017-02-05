@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:s="http://jboss.org/schema/seam/taglib"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<body>
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="topnav">
+            <ui:include src="/WEB-INF/incl/store_nav.xhtml">
+                <ui:param name="page" value="orders" />
+            </ui:include>
+        </ui:define>
+
+        <ui:define name="sidebar">
+            <ui:include src="/WEB-INF/incl/login.xhtml" />
+            <ui:include src="/WEB-INF/incl/cart.xhtml" />
+        </ui:define>
+        
+        <ui:define name="body">
+            <h1>خزشگرهای درخواستی شما:</h1>
+
+            <f:subview id="no_orders" rendered="#{!orders.rowAvailable}">
+                <p>شما هیچ خزشگری درخواست نکرده اید، سفارش آن بسیار ساده است از لینک زیر استفاده کنید.</p>
+                <s:button id="StartShoppingButton" view="/browse.xhtml" value="درخواست خزش" />
+            </f:subview>
+
+            <f:subview id="ordersummary" rendered="#{orders.rowAvailable}">
+                
+            <h:dataTable id="OrdersDataTable"
+                         value="#{orders}" var="item"
+                         styleClass="dvdtable" 
+                         headerClass="dvdtablehead"
+                         rowClasses="dvdtableodd,dvdtableeven"
+                         columnClasses="dvdtablecol">
+                <h:column id="column1">
+                    <f:facet id="OrderIdFacet" name="header">شماره سریال خزشگر:</f:facet>
+                    #{item.orderId}
+                </h:column>                        
+                <h:column id="column2">
+                    <f:facet id="OrderDateFacet" name="header">تاریخ درخواست:</f:facet>
+                    <h:outputText id="OrderDateValue" value="#{utils.persiandate(item.orderDate)}">
+                        
+                    </h:outputText>
+                </h:column>                        
+                <h:column id="column3">
+                    <f:facet id="StatusFacet" name="header">وضعیت خزشگر</f:facet>
+                    #{item.status}
+                </h:column>                        
+
+                <h:column id="column4">
+                    <s:button id="ShowDetailsButton" action="#{showorders.detailOrder}" value="جزییات خزشگر" />
+                </h:column>
+                <h:column id="column5">
+                    <s:button id="CancelButton" action="#{showorders.cancelOrder}" value="حذف خزشگر" rendered="#{item.open}"/>
+                </h:column>
+            </h:dataTable>
+
+            <f:subview id="orderdetails" rendered="#{myorder != null}">
+                <div class="cntInfo">
+                    <h2>جزییات خزشگر</h2>
+
+                    <h:panelGrid id="OrderDetailsPanel" columns="2">
+                        <h:outputText id="OrderIdText" value="شماره سفارش:" />
+                        <h:outputText id="OrderIdValue" value="#{myorder.orderId}" />
+                        
+                        <h:outputText id="StatusText" value="وضعیت خزشگر:" />
+                        <h:panelGroup id="StatusPanel">
+                            <h:outputText id="StatusValue" value="#{myorder.status}" />
+                            <h:outputText id="TrackingNumber"
+                                          value="(Tracking Number: #{myorder.trackingNumber})" 
+                                          rendered="#{myorder.statusCode==3}"/>
+                        </h:panelGroup>
+                        
+                        <h:outputText id="OrderDateText" value="تاریخ درخواست:" />
+                        <h:outputText id="OrderDateValue" value="#{utils.persiandate(myorder.orderDate)}">
+                            
+                        </h:outputText>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <h:outputText id="NetAmountText" value="هزینه خزشگر:" />
+                        <h:outputText id="NetAmountValue" value="#{myorder.netAmount} تومان">
+                            
+                        </h:outputText>
+                        
+                        <h:outputText id="TaxText" value="هزینه پهنای باند:" />
+                        <h:outputText id="TaxValue" value="#{myorder.tax} تومان">
+                            
+                        </h:outputText>
+                        
+                        <h:outputText id="TotalAmountText" value="جمع کل هزینه:" />
+                        <h:outputText id="TotalAmountValue" value="#{myorder.totalAmount} تومان">
+                            
+                        </h:outputText>
+                    </h:panelGrid>
+                    
+
+                    <div class="cntInfo">
+                        <h:dataTable id="OrderLinesDataTable"
+                                     value="#{myorder.orderLines}" var="item"
+                                     styleClass="dvdtable" 
+                                     headerClass="dvdtablehead"
+                                     rowClasses="dvdtableodd,dvdtableeven"
+                                     columnClasses="dvdtablecol">
+                            <h:column id="column1">
+                                <f:facet id="TitleFacet" name="header">
+                                    <h:outputText id="TitleText" value="#{messages.cartTitleColumn}" />
+                                </f:facet>
+                                <h:outputText id="TitleValue" value="#{item.product.title}" />
+                            </h:column>                        
+                            <h:column id="column2">
+                                <f:facet id="ActorFacet" name="header">
+                                    <h:outputText id="ActorText" value="سایت یا منابع" />
+                                </f:facet>
+                                <h:outputText id="ActorValue" value="#{item.crsite}" />
+                            </h:column>                        
+                            <h:column id="column3">
+                                <f:facet id="QuantityFacet" name="header">
+                                    <h:outputText id="QuantityText" value="نوع خروجی" />
+                                </f:facet>
+                                <h:outputText id="QuantityValue" value="#{item.crout}" />
+                            </h:column> 
+                            <h:column id="column33">
+                                <f:facet  name="header">
+                                    <h:outputText  value="پنل مدیریت" />
+                                </f:facet>
+                                <h:outputText  value="#{item.panel}" />
+                            </h:column>    
+                             <h:column >
+                                <f:facet  name="header">
+                                    <h:outputText  value="ربات ثبت نام" />
+                                </f:facet>
+                                <h:outputText  value="#{item.registerer}" />
+                            </h:column>                                             
+                            <h:column id="column4">
+                                <f:facet id="PriceFacet" name="header">
+                                    <h:outputText id="PriceText" value="#{messages.cartPriceColumn}" />
+                                </f:facet>
+                                <h:outputText id="PriceValue" value="#{item.product.price} تومان">
+                                    
+                                </h:outputText>
+                            </h:column>                        
+                        </h:dataTable>
+                    </div>
+                </div>
+            </f:subview>
+        </f:subview>
+        </ui:define>
+    </ui:composition>
+</body>
+</html>
+
+
+
+

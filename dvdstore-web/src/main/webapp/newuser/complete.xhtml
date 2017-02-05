@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:s="http://jboss.org/schema/seam/taglib"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<body>
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="topnav">
+            <ui:include src="/WEB-INF/incl/store_nav.xhtml">
+                <ui:param name="page" value="home" />
+            </ui:include>
+        </ui:define>
+
+        <ui:define name="sidebar">
+            <ui:include src="/WEB-INF/incl/login.xhtml" />
+        </ui:define>
+       
+        <ui:define name="body">
+            <f:subview id="loggedIn" rendered="#{identity.loggedIn}">
+                <h1>به سامانه خزشگر خوش آمدید.</h1>
+
+                <p>
+فضای کاربری شما ساخته شد و شما به صورت اتوماتیک لاگین شده اید.
+<br></br>                  
+ شما می توانید اقدام به سفارش خزشگر کنید:
+     <s:link id="StartShoppingLink" view="/browse.xhtml">درخواست خزشگر</s:link> .
+                </p>
+            </f:subview>
+
+            <f:subview id="logInError" rendered="#{!identity.loggedIn}">
+                <h1>پوزش!</h1>
+
+                <p>
+                    یک اتفاق غیر منتظره روی داده است مجدد تلاش کنید.
+                </p>
+            </f:subview>
+
+        </ui:define>
+    </ui:composition>
+</body>
+</html>

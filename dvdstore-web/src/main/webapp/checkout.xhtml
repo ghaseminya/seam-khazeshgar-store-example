@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="topnav">
+			<ui:include src="/WEB-INF/incl/store_nav.xhtml">
+				<ui:param name="page" value="cart" />
+			</ui:include>
+		</ui:define>
+
+		<ui:define name="sidebar">
+			<ui:include src="/WEB-INF/incl/login.xhtml" />
+		</ui:define>
+
+		<ui:define name="body">
+			<h1>سبد خزشهای انتخابی</h1>
+
+
+
+			<f:subview id="emptycart" rendered="#{empty cart.cart}">
+				<p>سبد شما خالیست.</p>
+
+				<h:form id="EmptyCartForm">
+					<h:commandButton id="ContinueShoppingButton" action="browse"
+						value="انتخاب خزشگر" />
+				</h:form>
+			</f:subview>
+
+			<f:subview id="cartdetails" rendered="#{not empty cart.cart}">
+				<h:form id="CartDetailsForm">
+				<ui:repeat var="item" value="#{cart.cart}">
+				حذف کردن سفارش:<h:selectBooleanCheckbox id="CartRemoveCheckbox"
+								value="#{cart.cartSelection[item]}" /><br/>
+				عنوان بسته سفارشی:<b><h:outputText id="TitleValueText" value="#{item.product.title}" /></b><br/>
+				سایت مورد نظر جهت خزش:
+				<h:inputText value="#{item.crsite}" id="CrawlSiteValue" size="55"/>
+				<br/>
+				خروجی مورد نظر:
+				<h:selectOneMenu value="#{item.crout}">
+								<f:selectItem itemValue="csv" itemLabel="خروجی اکسل" />
+								<f:selectItem itemValue="json" itemLabel="خروجی جی سون" />
+								<f:selectItem itemValue="db" itemLabel="خروجی پایگاه داده" />
+								<f:selectItem itemValue="wsdl" itemLabel="خروجی وب سرویس آنلاین" />
+								<f:selectItem itemValue="complicate" itemLabel="خروجی ترکیبی" />
+							</h:selectOneMenu><br/>
+				آیا به پنل مدیریت دیتا هم نیاز دارید؟<h:selectBooleanCheckbox id="CartRemoveCheckbox2"
+								value="#{item.panel}" /><br/>
+				آیا ربات ثبت دیتا هم نیاز هست؟<h:selectBooleanCheckbox id="CartRemoveCheckbox3"
+								value="#{item.registerer}" /><br/>
+				مدت زمان این سفارش که مد نظر شماست:<h:selectOneMenu value="#{item.timeneeded}">
+								<f:selectItem itemValue="یکبار استفاده" itemLabel="برای یک بار استفاده" />
+								<f:selectItem itemValue="یک هفته استفاده" itemLabel="استفاده برای یک هفته" />
+								<f:selectItem itemValue="یک ماه استفاده" itemLabel="استفاده در یک ماه" />
+								<f:selectItem itemValue="نامحدود" itemLabel="استفاده نامحدود" />
+							</h:selectOneMenu><br/>
+				تعداد این سفارش:<h:inputText id="QuantityValueText" size="6"
+								value="#{item.quantity}" /><br/>
+				هزینه:<b><h:outputText id="PriceValueText" value="#{item.product.price} تومان" ></h:outputText></b><br/>
+				<hr/>
+								
+				</ui:repeat>
+					
+					<h:commandButton id="ContinueShoppingButton" action="browse"
+						value="انتخاب پلان های بیشتر" />
+                    &#160;
+                    <h:commandButton id="ResetCartButton"
+						action="#{cart.resetCart}" value="حذف کلیه سفارشات" />
+                    &#160;
+                    <h:commandButton id="UpdateCartButton"
+						action="#{cart.updateCart}"
+						value="#{messages.checkoutUpdateButton}" />
+				</h:form>
+
+				<div style="width: 100%;">
+					<div class="cntInfo" style="float: right;">
+						<h:panelGrid id="CostSummary" columns="2">
+							<h:outputText id="CartSubtotalText"
+								value="#{messages.checkoutSubtotal}" />
+							<h:outputText id="CartSubtotalValue" value="#{cart.subtotal} تومان">
+								
+							</h:outputText>
+
+							<h:outputText id="CartTaxText" value="#{messages.checkoutTax}" />
+							<h:outputText id="CartTaxValue" value="#{cart.tax} تومان">
+								
+							</h:outputText>
+
+							<h:outputText id="CartTotalText"
+								value="#{messages.checkoutTotal}" />
+							<h:outputText id="CartTotalValue" value="#{cart.total} تومان">
+								
+							</h:outputText>
+						</h:panelGrid>
+
+
+						<f:subview id="purchaseaction" rendered="#{identity.loggedIn}">
+							<h:form id="PurchaseActionForm">
+								<h:commandButton id="PurchaseButton"
+									action="#{checkout.createOrder}"
+									value="#{messages.checkoutPurchaseButton}" />
+							</h:form>
+						</f:subview>
+					</div>
+
+					<f:subview id="notloggedin" rendered="#{!identity.loggedIn}">
+						<p class="warning">قبل از تایید می بایست به سامانه ورور کنید.</p>
+					</f:subview>
+				</div>
+			</f:subview>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

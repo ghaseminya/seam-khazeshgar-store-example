@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:s="http://jboss.org/schema/seam/taglib"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<body>
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="topnav">
+            <ui:include src="/WEB-INF/incl/store_nav.xhtml">
+                <ui:param name="page" value="services" />
+            </ui:include>
+        </ui:define> 
+           
+        <ui:define name="sidebar">
+            <ui:include src="/WEB-INF/incl/login.xhtml" />
+        </ui:define>
+        
+        <ui:define name="body">
+            <h1>
+            	سرویس های رایگان خزشگر:
+            </h1>
+            
+            <p>
+					<h2>وب سایت دامپینگ...</h2>
+					کل سایت رو برام دانلود کن...
+					مناسب برای دانلود دریافت اطلاعات مفید از سایت ها....
+					
+			</p> 
+			<p>
+				<h2>سرویس شخصی سازی سایت ها</h2>
+				آیا از ظاهر یک سایت خوشتون نمی آد و می خواهید به سبک دیگه ببینیدش؟
+				کافیه از این سرویس استفاده کنین تا خروجی های معجزه ای اون رو ببینید.
+			</p>
+			<p>
+				<h2>سرویس دریافت آخرین خبر در موضوعی خاص</h2>
+				آیا می خواهید در مورد نتیجه فوتبال فلان تیم آخرین خبر ررو داشته باشید؟
+				آیا می خواهید آخرین قیمت فلان کالا را در یک سایت محبوب داشته باشید؟
+				آیا می خواهید هر روز بهتون آخرین قیمت سکه پیامک بشه؟
+				آیا می خواهید قیمت فلان کالا براتون به صورت پیامکی بیاد؟
+			</p>
+
+
+            <s:button id="StartShoppingButton" view="/browse.xhtml" value="درخواست خزش" />
+
+        </ui:define>
+    </ui:composition> 
+</body> 
+</html>
