@@ -44,7 +44,7 @@ public class LongProcess {
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("khazeshgar@gmail.com", "aminmxglx00%");
+                return new PasswordAuthentication("khazeshgar@gmail.com","XXXXX");
             }
         });
 
